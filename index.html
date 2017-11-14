@@ -19,6 +19,7 @@
 		<table class="table">
 			<tr>
 				<th>Selecionado</th>
+				<th>É favorito</th>
 				<th>Nome</th>
 				<th>Foto</th>
 				<th>Nota</th>
@@ -26,7 +27,8 @@
 				
 			</tr>
 			<tr ng-repeat="artista in (artistas | filter: artistaParametro)">
-				<td><input type="checkbox" name="selecionar" ng-model="artista.escolhido" ></td>	
+				<td><input type="checkbox" name="selecionar" ng-model="artista.escolhido" ></td>
+				<td>{{eFavorito(artista)}}</td>	
 				<td>{{artista.nome}}</th>
 				<td><img src="images.png" ng-src="{{artista.foto}}" width="50px" height="50px"></td>
 				<td><select ng-name = "nota" ng-model="artista.nota" ng-options="nota.valor for nota in notas"></td>

@@ -1,11 +1,6 @@
 	angular.module("eXpotifai").controller("eXpotifaiCtrl",function($scope) {
 
 			$scope.artistas= [
-			{
-				nome:"Artistas Favoritos",
-				albuns:[],
-				foto:"favorito.png",
-			}
 
 			];
 			$scope.notas = [
@@ -123,10 +118,7 @@
 				for (var i = 0; i < $scope.artistas.length; i++) {
 					if ($scope.artistas[i].escolhido) {
 						var artista = $scope.artistas[i];
-						for (var j = 0; j < artista.albuns.length; j++) {
-							var album = artista.albuns[j];
-							favorito.albuns.push(album);
-						}
+						artista.favorito = true;
 					}
 				}
 			}; 
@@ -138,26 +130,14 @@
 					alert("Remoção cancelada");
 					return;
 				}
-				var albunsFavoritos = $scope.artistas[0].albuns;
-				var albunsEscolhidos = [];
 				for (var i = 0; i < $scope.artistas.length; i++) {
 						if ($scope.artistas[i].escolhido) {
 							var artista = $scope.artistas[i];
-							for (var j = 0; j < artista.albuns.length; j++) {
-								var album = artista.albuns[j];
-								albunsEscolhidos.push(album);
+							if (artista.favorito) {
+								artista.favorito = false;
 							}
 						}
 					}
-
-				for (var i = 0; i < albunsEscolhidos.length; i++) {
-					var index = albunsFavoritos.indexOf(albunsFavoritos[i]);
-					while(index > -1 ) {
-		   				 albunsFavoritos.splice(index, 1);
-		   				 index = albunsFavoritos.indexOf(albunsFavoritos[i]);
-					}
-				}
-				
 
 			};
 
@@ -179,6 +159,13 @@
 				return musicasSelecionadas;
 
 			};
+
+			$scope.eFavorito = function(artista) {
+				if (artista.favorito) {
+					return "SIM"
+				}
+				return "NAO"
+			}
 
 			$scope.removePlaylist = function() {
 				var  resposta =	prompt("Você tem certeza disso? Digite SIM para confirmar");
