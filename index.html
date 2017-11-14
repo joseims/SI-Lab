@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="eXpotifai">
+<head>
+	<title>eXṕotifai</title>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="lib/angular/angular.js"></script>
+	<script src = "js/eXpotifai.js"></script>
+	<script  src = "js/controllers/eXpotifaiCtrl.js"></script>
+</head>
+<body class="jumbotron" ng-controller="eXpotifaiCtrl">
+	<input class="form-control" ng-model="artistaPesquisa.nome" type="text" placeholder="Nome do Artista">
+	<button class="btn btn-primary btn-block" ng-click="setArtistaParametro(artistaPesquisa)" >Pesquisar Artista</button>
+	<button class="btn btn-primary btn-block" ng-click="adicionaFavoritos()" >Adiciona aos artistas favoritos</button>
+
+	<button class="btn btn-primary btn-block" ng-click="removeFavoritos()" >Remove artista dos favoritos</button>
+		<div>
+		<h3 class="titulo" >Artistas</h3>
+		<table class="table">
+			<tr>
+				<th>Selecionado</th>
+				<th>Nome</th>
+				<th>Foto</th>
+				<th>Nota</th>
+				<th>Ultima música ouvida</th>
+				
+			</tr>
+			<tr ng-repeat="artista in (artistas | filter: artistaParametro)">
+				<td><input type="checkbox" name="selecionar" ng-model="artista.escolhido" ></td>	
+				<td>{{artista.nome}}</th>
+				<td><img src="images.png" ng-src="{{artista.foto}}" width="50px" height="50px"></td>
+				<td><select ng-name = "nota" ng-model="artista.nota" ng-options="nota.valor for nota in notas"></td>
+				<td>{{artista.ultimaMusica}}</td>
+			</tr>
+			
+		</table>
+		<div class="text"></div>
+		<hr>
+		<h3 class="titulo" >Playlists</h3>
+		<table class="table">
+			<tr>
+				<th>Nome da Playlist</th>
+				<th>Nome da Música</th>
+				<th>Artista</th>
+				<th>Album</th>
+				<th>Ano de Lançamento</th>
+				<th>Duração</th>
+				<th>Def. Ult. música ouvida</th>
+				
+			</tr>
+				<tbody ng-repeat = "playlistAtual in playlists " >
+				{{}}
+					<tr ng-repeat="musicaAtual in (playlistAtual.musicas)" > 
+						<td>{{playlistAtual.nome}}</td>
+						<td>{{musicaAtual.nome}}</td>
+						<td>{{musicaAtual.artista}}</td>
+						<td>{{musicaAtual.album}}</td>
+						<td>{{musicaAtual.ano}}</td>
+						<td>{{musicaAtual.duracao}}</td>
+						<td><button class="btn btn-primary" ng-click="setUltimaMusica(musicaAtual)" width="50px" height="50px" ></button></td>
+					</tr>
+				</tbody>
+					
+			
+		</table>
+		<hr>
+		<button class="btn btn-primary btn-block" ng-click="adicionaPlaylist()" >Adicionar Musicas a playlist</button>
+		<button class="btn btn-primary btn-block" ng-click="removePlaylist()" >Remover musicas selecionadas da playlist</button>
+		<hr>
+		<h3 class="titulo" >Musicas</h3>
+		<table class="table">
+			<tr>
+				<th>Selecionados</th>
+				<th>Nome da Música</th>
+				<th>Artista</th>
+				<th>Album</th>
+				<th>Ano de Lançamento</th>
+				<th>Duração</th>
+				<th>Def. Ult. música ouvida</th>
+			</tr>
+					<tr ng-repeat="musicaAtual in getMusicasEscolhidas()">
+					<td><input type="checkbox" name="selecionar" ng-model="musicaAtual.escolhido" ></td>	
+						<td>{{musicaAtual.nome}}</td>
+						<td>{{musicaAtual.artista}}</td>
+						<td>{{musicaAtual.album}}</td>
+						<td>{{musicaAtual.ano}}</td>
+						<td>{{musicaAtual.duracao}}</td>
+						<td><button class="btn btn-primary" ng-click="setUltimaMusica(musicaAtual)" width="50px" height="50px" ></button></td>
+					</tr>
+			
+		</table>
+		</div>
+		<hr>
+	<div>
+		<input class="form-control" ng-model="artista.nome" type="text" placeholder="Nome do Artista">
+		<input class="form-control" ng-model="artista.foto" type="text" placeholder="Link para a foto">
+		<button class="btn btn-primary btn-block" ng-click="adicionaArtista(artista)" >Adicionar Artista</button>
+	</div>
+	<hr>
+	<div>
+		<input class="form-control" ng-model="musica.nome" type="text" placeholder="Nome da Musica">
+		<input class="form-control" ng-model="musica.artista" type="text" placeholder="Nome do Cantor">
+		<input class="form-control" ng-model="musica.album" type="text" placeholder="Nome do Album">
+		<input class="form-control" ng-model="musica.ano" type="text" placeholder="Ano de lancamento">
+		<input class="form-control" ng-model="musica.duracao" type="text" placeholder="Duracao">
+		<button  class="btn btn-primary btn-block" ng-click="adicionaMusica(musica)" >Adicionar Musica</button>
+
+	</div>
+	
+</body>
+</html>
